@@ -14,14 +14,20 @@ class Tir:
     def plot_function(self):  
         equation = self.accueil.entry_func.get()  # Récupère la fonction entrée par l'utilisateur
         if not equation:  # Vérifie si la fonction est vide
-            print("Veuillez entrer une fonction valide.")
+            print("Please enter valide function")
             self.accueil.entry_func.delete(0, "end")
-            self.accueil.entry_func.configure(placeholder_text="* Invalide", placeholder_text_color="#F14156", font=("Arial", 18, "bold"))
+            self.accueil.entry_func.configure(placeholder_text="* Invalid", placeholder_text_color="#F14156", font=("Arial", 18, "bold"))
             return
-        
+    
         # Sécurité pour éviter les transaltion verticale ------------------------- A revoir pour les - (ex : -0.1*x)
         nb_plus, nb_moins, nb_x, no = 0, 0, 0, 0 
-        if '+' or '-' in equation:
+        caract_special = ['!', '@', '#', '$', '%', '?', '&', '_', '=', ';', '<', '>', ',', ':', '¨', '^', '~', '»', '«']
+        for l in caract_special:
+            if l in equation:
+                self.accueil.entry_func.delete(0, "end")
+                self.accueil.entry_func.configure(placeholder_text="* Invalid", placeholder_text_color="#F14156", font=("Arial", 18, "bold"))
+                return
+        if '+' in equation or '-' in equation:
             for i in equation:
                 if i == '+' : nb_plus += 1
                 if i == 'x' : nb_x += 1
@@ -30,7 +36,7 @@ class Tir:
             if nb_plus >= nb_x or nb_moins >= nb_x:
                 print("La fonction ne peut pas être translatée verticalement.")
                 self.accueil.entry_func.delete(0, "end")
-                self.accueil.entry_func.configure(placeholder_text="* Invalide", placeholder_text_color="#F14156", font=("Arial", 18, "bold"))
+                self.accueil.entry_func.configure(placeholder_text="* Invalid", placeholder_text_color="#F14156", font=("Arial", 18, "bold"))
                 return
         
         # Position du joueur et de la cible
@@ -47,7 +53,7 @@ class Tir:
         try:
             y_fct = eval(equation, {"x": x_fct, "np": np})
         except Exception as e:
-            print(f"Erreur dans l'équation : {e}")
+            print(f"Error in equation : {e}")
             return
         
         # Faire une translation horizontale et vertical de la fonction afin de la faire commencer (0,0) au joueur (x_joueur, y_joueur)

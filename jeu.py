@@ -38,24 +38,24 @@ class Jeu(ctk.CTkFrame):
 
         # Créer les boutons et labels
         self.function_types = {
-            "Linéaire": "x",
-            "Quadratique": "0.01*x**2",
-            "Exponentielle": "np.exp(x*0.1)",
+            "Linear": "x",
+            "Quadratic": "0.01*x**2",
+            "Exponential": "np.exp(x*0.1)",
             "Sinus": "np.sin(x*0.1)*10",
-            "Cosinus": "np.cos(x*0.1)*10",
+            "Cosine": "np.cos(x)",
         }
         # Première ligne
         self.score_label = ctk.CTkLabel(self.main_frame, text=f"Score: {self.score}", width=150, height=40, corner_radius=15, fg_color="#16a085", font=("Arial", 18, "bold"), text_color="#F8F6F6")
         self.func_selector = ctk.CTkComboBox(self.main_frame, values=list(self.function_types.keys()), command=self.tir.plot_selected_function, width=220, height=50, corner_radius=25, fg_color="white", text_color="black", font=("Arial", 18, "bold"))
-        self.entry_func = ctk.CTkEntry(self.main_frame, placeholder_text="Entrez une fonction", width=220, height=50, corner_radius=25, fg_color="white", text_color="black", font=("Arial", 18, "bold"))
-        self.timer_label = ctk.CTkLabel(self.main_frame, text=f"Temps : {self.time_left}", width=150, height=40, corner_radius=15, fg_color="#16a085", font=("Arial", 18, "bold"), text_color="#F8F6F6")
+        self.entry_func = ctk.CTkEntry(self.main_frame, placeholder_text="Enter a function", width=220, height=50, corner_radius=25, fg_color="white", text_color="black", font=("Arial", 18, "bold"))
+        self.timer_label = ctk.CTkLabel(self.main_frame, text=f"Timer : {self.time_left}", width=150, height=40, corner_radius=15, fg_color="#16a085", font=("Arial", 18, "bold"), text_color="#F8F6F6")
         # Deuxieme ligne
-        self.obstacles_label = ctk.CTkLabel(self.main_frame, text=f"Précision: {self.obstacles_touches:.0f}%", width=150, height=40, corner_radius=15, fg_color="#16a085", font=("Arial", 18, "bold"), text_color="#F8F6F6")
-        self.reset_map_button = ctk.CTkButton(self.main_frame, text="Carte suivante", command=lambda: [self.tir.reset_plot(), setattr(self, 'time_left', self.time_left - 10)], width=220, height=50, corner_radius=25, fg_color="#f39c12", hover_color="#d57e2b", font=("Arial", 18, "bold"))
-        self.plot_button = ctk.CTkButton(self.main_frame, text="Tracer la fonction", command=self.tir.plot_function, width=220, height=50, corner_radius=25, fg_color="#ff6347", hover_color="#d93c3a", font=("Arial", 18, "bold"))
+        self.obstacles_label = ctk.CTkLabel(self.main_frame, text=f"Precision: {self.obstacles_touches:.0f}%", width=150, height=40, corner_radius=15, fg_color="#16a085", font=("Arial", 18, "bold"), text_color="#F8F6F6")
+        self.reset_map_button = ctk.CTkButton(self.main_frame, text="Skip map", command=lambda: [self.tir.reset_plot(), setattr(self, 'time_left', self.time_left - 10)], width=220, height=50, corner_radius=25, fg_color="#f39c12", hover_color="#d57e2b", font=("Arial", 18, "bold"))
+        self.plot_button = ctk.CTkButton(self.main_frame, text="Plot function", command=self.tir.plot_function, width=220, height=50, corner_radius=25, fg_color="#ff6347", hover_color="#d93c3a", font=("Arial", 18, "bold"))
         self.reset_button = ctk.CTkButton(self.main_frame, text="Reset", command=self.reset_all, width=150, height=40, corner_radius=15, fg_color="#16a085", hover_color="#12876f", font=("Arial", 18, "bold"))
         # Quatrième
-        self.bouton_retour = ctk.CTkButton(self.main_frame, text="Retour", command=lambda:[self.set_bool(False), self.masquer_jeu()], corner_radius=15, width=200, height=40, fg_color="#e74c3c", hover_color="#d93c3a", font=("Arial", 16, "bold"))
+        self.bouton_retour = ctk.CTkButton(self.main_frame, text="Back", command=lambda:[self.set_bool(False), self.masquer_jeu()], corner_radius=15, width=200, height=40, fg_color="#e74c3c", hover_color="#d93c3a", font=("Arial", 16, "bold"))
         
     def lancer_jeu(self):
         self.time_left = 101
@@ -74,7 +74,7 @@ class Jeu(ctk.CTkFrame):
         self.score_label.grid(row=0, column=0, padx=(265, 10), pady=10)
         self.func_selector.grid(row=0, column=1, padx=10, pady=10)
         self.entry_func.grid(row=0, column=2, padx=10, pady=10)
-        self.entry_func.configure(placeholder_text="Entrez une fonction")
+        self.entry_func.configure(placeholder_text="Enter a function")
         self.timer_label.grid(row=0, column=3, padx=(10, 266), pady=10)
 
         # Deuxième ligne : Précision(obstacles), tracer, nouvelle map, reset
@@ -132,7 +132,7 @@ class Jeu(ctk.CTkFrame):
 
         # Tracé du joueur et de la cible
         self.ax.plot(self.joueur.joueur_position[0], self.joueur.joueur_position[1], 'bv', markersize=10, label=self.accueil.get_nom_joueur())
-        self.ax.plot(self.joueur.cible_position[0], self.joueur.cible_position[1], 'go', markersize=10, label='Cible')
+        self.ax.plot(self.joueur.cible_position[0], self.joueur.cible_position[1], 'go', markersize=10, label='Target')
         # Définition des limites des axes
         self.ax.set_xlim(0, 360)  
         self.ax.set_ylim(0, 200)  
@@ -159,7 +159,7 @@ class Jeu(ctk.CTkFrame):
         if self.get_score_joueur() != False:
             self.obstacles_label.configure(text=f"Record: {self.get_score_joueur()}")
         else:
-            self.obstacles_label.configure(text=f"Précision: {self.ratio:.0f}%")
+            self.obstacles_label.configure(text=f"Precision: {self.ratio:.0f}%")
         
     def increment_score(self):
         if self.time_left > 0:
@@ -191,7 +191,7 @@ class Jeu(ctk.CTkFrame):
         else:
             self.timer_label.configure(text_color="#F8F6F6")  # Couleur normale
             self.is_flashing = not self.is_flashing
-            self.timer_label.configure(text="Temps écoulé!")
+            self.timer_label.configure(text="Time's up!")
             self.set_score_joueur(self.score)
 
     def reset_all(self):
