@@ -1,12 +1,6 @@
 {
     "Emile": {
         "password": "$2b$12$PhsU8nqLEBUXrc.BWnmS3OwgBs4e5.neRAiZI70PsynHl0tRZOmLC"
-    },
-    "emile3": {
-        "password": "$2b$12$BzLp2r/JikfMCWZDx4DskOHn/cbJjD8D9IhwQLjaFRp8q3BMIWH5K"
-    },
-    "Player": {
-        "password": "$2b$12$eXhObH6I4Grj9b7Exe3kRevmkM5EktUj7rdcKG.P4t/MXlvM9nS3W",
         "score": 3
     },
     "Random_User": {
