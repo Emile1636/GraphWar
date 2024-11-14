@@ -2,7 +2,6 @@ import customtkinter as ctk
 import json
 import os
 import bcrypt
-import requests # URL fichier JSON hébergé
 
 class Formulaire(ctk.CTkFrame):
     def __init__(self, master, main_frame, accueil):
@@ -10,9 +9,9 @@ class Formulaire(ctk.CTkFrame):
         self.main_frame = main_frame
         self.accueil = accueil
         self.pseudo = ""
-        self.creation_formaulaire()
+        self.creation_formulaire()
     
-    def creation_formaulaire(self):
+    def creation_formulaire(self):
         # Boutons de bascule Connexion/Inscription
         self.bouton_connexion = ctk.CTkButton(self.main_frame, text="Log in", command=self.afficher_connexion,corner_radius=30, width=200, height=80, fg_color="#16a085", font=("Arial", 28, "bold"))
         self.bouton_inscription = ctk.CTkButton(self.main_frame, text="Sign in", command=self.afficher_inscription,corner_radius=30, width=200, height=80, fg_color="#34495e", font=("Arial", 28, "bold"))
@@ -22,7 +21,7 @@ class Formulaire(ctk.CTkFrame):
         self.entry_confirm_mdp = ctk.CTkEntry(self.main_frame, placeholder_text="Confirm Password", placeholder_text_color="#B0B0B0", show="*", width=440, height=80,corner_radius=25, fg_color="white", text_color="black", font=("Arial", 24, "bold"))
         # Bouton de soumission et de retour
         self.bouton_valider = ctk.CTkButton(self.main_frame, text="Log in", command=self.valider_formulaire, corner_radius=50, width=440, height=80, fg_color="#1abc9c", font=("Arial", 32, "bold"))
-        self.bouton_retour = ctk.CTkButton(self.main_frame, text="Back", command=lambda:[self.masquer_formulaire(), self.accueil.afficher_accueil()], corner_radius=30, width=300, height=60, fg_color="#e74c3c", hover_color="#d93c3a", font=("Arial", 24, "bold"))
+        self.bouton_retour = ctk.CTkButton(self.main_frame, text="Back", command=lambda:[self.masquer_formulaire(), self.accueil.afficher_accueil(False)], corner_radius=30, width=300, height=60, fg_color="#e74c3c", hover_color="#d93c3a", font=("Arial", 24, "bold"))
 
     def afficher_connexion(self):
         # Positionner les éléments
@@ -187,7 +186,7 @@ class Formulaire(ctk.CTkFrame):
         self.masquer_formulaire()
         self.label_connexion_reussi = ctk.CTkLabel(self.main_frame, text="Connection successful!", font=("Arial", 100, "bold"), text_color="#16a085")
         self.label_connexion_reussi.grid(row=0, column=0, columnspan=2, pady=(0, 100))
-        self.master.after(1000, lambda: [self.label_connexion_reussi.grid_remove(), self.accueil.afficher_accueil()])
+        self.master.after(1000, lambda: [self.label_connexion_reussi.grid_remove(), self.accueil.afficher_accueil(True)])
 
     def afficher_inscription_reussi(self):
         self.masquer_formulaire()
