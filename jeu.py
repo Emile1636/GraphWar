@@ -198,6 +198,7 @@ class Jeu(ctk.CTkFrame):
         self.bool = False
         self.obstacles_touches = 0
         self.ratio = 0
+        self.score = 0
         self.timer_label.configure(text_color="#F8F6F6")
         self.time_left = 101
         self.tir.reset_plot()
