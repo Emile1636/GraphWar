@@ -26,4 +26,4 @@ Inspired by: [https://github.com/catabriga/graphwar](https://github.com/catabrig
 
 United States Cities Database by Simplemaps: [https://simplemaps.com/data/us-cities](https://simplemaps.com/data/us-cities)
 
-Data storage : [https://getpantry.cloud/](https://getpantry.cloud/)
+(Comming soon : Data storage : [https://getpantry.cloud/](https://getpantry.cloud/))
