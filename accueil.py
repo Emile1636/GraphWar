@@ -23,7 +23,7 @@ class Accueil:
         else:
             return self.nom_joueur
 
-    def afficher_accueil(self):
+    def afficher_accueil(self, bool):
         # Titre "Graph" et "War"
         self.label_graph = ctk.CTkLabel(self.main_frame, text="Graph", font=("Arial", 180, "bold"), text_color="#16a085")
         self.label_graph.grid(row=0, column=0, columnspan=2, padx=(0, 400), pady=(0, 100))
@@ -31,13 +31,13 @@ class Accueil:
         self.label_war.grid(row=0, column=1, columnspan=2, padx=(10, 0), pady=(0, 100))
 
         # Boutons: Jouer, Connexion, Inscription, Déconnexion
-        self.bouton_jouer = ctk.CTkButton(self.main_frame, text="Play", command=self.lancer_jeu, width=300, height=70, corner_radius=30, fg_color="#ff6347", hover_color="#d93c3a", font=("Arial", 34, "bold"))
-        self.bouton_deconnexion = ctk.CTkButton(self.main_frame, text="Log out", command=lambda:[self.formulaire.set_nom_joueur(""), self.masquer_accueil(), self.afficher_accueil()], width=250, height=60, corner_radius=25, fg_color="#48C9B0", hover_color="#16a085", font=("Arial", 24, "bold"))
-        self.bouton_connexion = ctk.CTkButton(self.main_frame, text="Login", command=self.lancer_connexion, width=250, height=60, corner_radius=25, fg_color="#48C9B0", hover_color="#16a085", font=("Arial", 24, "bold"))
-        self.bouton_inscription = ctk.CTkButton(self.main_frame, text="Sign in", command=self.lancer_inscription, width=250, height=60, corner_radius=25, fg_color="#f39c12", hover_color="#d57e2b", font=("Arial", 24, "bold"))
-        self.bouton_quitter = ctk.CTkButton(self.main_frame, text="Quit", command=self.app.quit_app, width=250, height=60, corner_radius=25, fg_color="#34495e",  font=("Arial", 24, "bold"))
+        self.bouton_jouer = ctk.CTkButton(self.main_frame, text="Play", command=self.lancer_jeu, width=300, height=70, corner_radius=30, fg_color="#ff6347", hover_color="#d93c3a", font=("Arial", 34, "bold")) # ff6347
+        self.bouton_deconnexion = ctk.CTkButton(self.main_frame, text="Log out", command=lambda:[self.formulaire.set_nom_joueur(""), self.masquer_accueil(), self.afficher_accueil(False)], width=250, height=60, corner_radius=25, fg_color="#48C9B0", hover_color="#16a085", font=("Arial", 24, "bold")) # 48C9B0
+        self.bouton_connexion = ctk.CTkButton(self.main_frame, text="Log in", command=self.lancer_connexion, width=250, height=60, corner_radius=25, fg_color="#48C9B0", hover_color="#16a085", font=("Arial", 24, "bold")) # 48C9B0
+        self.bouton_inscription = ctk.CTkButton(self.main_frame, text="Sign in", command=self.lancer_inscription, width=250, height=60, corner_radius=25, fg_color="#f39c12", hover_color="#d57e2b", font=("Arial", 24, "bold")) # f39c12
+        self.bouton_quitter = ctk.CTkButton(self.main_frame, text="Quit", command=self.app.quit_app, width=250, height=60, corner_radius=25, fg_color="#34495e",  font=("Arial", 24, "bold")) # 34495e
         # Placer sur la grille
-        if self.formulaire.get_nom_joueur() != "":
+        if bool:
             self.bouton_deconnexion_exist = True
             self.bouton_jouer.grid(row=1, column=0, columnspan=2, pady=15)
             self.bouton_deconnexion.grid(row=2, column=0, columnspan=2, pady=15)
