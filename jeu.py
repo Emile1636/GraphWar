@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg  # Importation pour intégrer Matplotlib avec tkinter
 from joueur import Joueur  
 from tir import Tir  
+from formulaire import Formulaire
 from traitementCSV import Obstacles
 from matplotlib.patches import Circle
 import json
@@ -15,7 +16,6 @@ class Jeu(ctk.CTkFrame):
         self.main_frame = main_frame
         self.accueil = accueil
         self.bool = True
-
         # Crée un frame pour le graphique
         self.plot_frame = ctk.CTkFrame(self)
         self.creation_jeu()
@@ -55,7 +55,7 @@ class Jeu(ctk.CTkFrame):
         self.plot_button = ctk.CTkButton(self.main_frame, text="Plot function", command=self.tir.plot_function, width=220, height=50, corner_radius=25, fg_color="#ff6347", hover_color="#d93c3a", font=("Arial", 18, "bold"))
         self.reset_button = ctk.CTkButton(self.main_frame, text="Reset", command=self.reset_all, width=150, height=40, corner_radius=15, fg_color="#16a085", hover_color="#12876f", font=("Arial", 18, "bold"))
         # Quatrième
-        self.bouton_retour = ctk.CTkButton(self.main_frame, text="Back", command=lambda:[self.set_bool(False), self.masquer_jeu()], corner_radius=15, width=200, height=40, fg_color="#e74c3c", hover_color="#d93c3a", font=("Arial", 16, "bold"))
+        self.bouton_retour = ctk.CTkButton(self.main_frame, text="Back", command=lambda:[self.set_bool(False), self.set_score_joueur(self.score), self.masquer_jeu()], corner_radius=15, width=200, height=40, fg_color="#e74c3c", hover_color="#d93c3a", font=("Arial", 16, "bold"))
         
     def lancer_jeu(self):
         self.time_left = 101
@@ -115,7 +115,10 @@ class Jeu(ctk.CTkFrame):
         self.canvas.get_tk_widget().grid_remove()
         self.bouton_retour.grid_remove()
         # Retour accueil
-        self.accueil.afficher_accueil()
+        if self.accueil.get_nom_joueur() != "Player":
+            self.accueil.afficher_accueil(True)
+        else :
+            self.accueil.afficher_accueil(False)
 
     def plot_obstacles_and_goal(self):
         for obstacle in self.joueur.obstacles:  # Itération sur les obstacles
