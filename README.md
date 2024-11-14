@@ -12,7 +12,8 @@
 
 
 ## Profile creation
-### Saving account information online, play from anywhere.
+### Saving account information 
+Comming soon : online, to play from anywhere.
 
 <img width="1470" alt="Account" src="https://github.com/user-attachments/assets/f4998f9a-5df2-466b-841e-6d0fa9ea1c84">
 
