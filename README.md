@@ -20,6 +20,7 @@ Comming soon : online, to play from anywhere.
 ## Disclaimer & Context
 
 This project is part of a course where learning and innovation take precedence over code security and efficiency. Thanks for your understanding.
+Note : The screen resolution is based on 1470 x 956 (Update coming soon)
 
 ## Acknowledgment
 Inspired by: [https://github.com/catabriga/graphwar](https://github.com/catabriga/graphwar)  
