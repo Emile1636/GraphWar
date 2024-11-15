@@ -26,4 +26,4 @@ class Interface(ctk.CTkFrame):  # Définition de l'écran d'accueil
         self.accueil.set_formulaire(self.formulaire)
         self.accueil.set_jeu(self.jeu)
         self.accueil.set_nom_joueur(self.joueur.get_nom_joueur())
-        self.accueil.afficher_accueil() # Lancer l'accueil par défaut
+        self.accueil.afficher_accueil(False) # Lancer l'accueil par défaut
