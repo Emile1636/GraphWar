@@ -21,11 +21,11 @@ Private version : online, to play from anywhere.
 
 This project is part of a course where learning and innovation take precedence over code security and efficiency. Thanks for your understanding.
 
-Note : The screen resolution is based on 1470 x 956 (Update comming soon)
+Note : The screen resolution is based on 1470 x 956 (Update still to come)
 
 ## Acknowledgment
 Inspired by: [https://github.com/catabriga/graphwar](https://github.com/catabriga/graphwar)  
 
 United States Cities Database by Simplemaps: [https://simplemaps.com/data/us-cities](https://simplemaps.com/data/us-cities)
 
-(Comming soon : Data storage : [https://getpantry.cloud/](https://getpantry.cloud/))
+(Private version) Data storage : [https://getpantry.cloud/](https://getpantry.cloud/))
