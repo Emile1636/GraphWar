@@ -32,4 +32,6 @@ Inspired by: [https://github.com/catabriga/graphwar](https://github.com/catabrig
 
 United States Cities Database by Simplemaps: [https://simplemaps.com/data/us-cities](https://simplemaps.com/data/us-cities)
 
+BERT : [https://huggingface.co/docs/transformers/model_doc/bert](https://huggingface.co/docs/transformers/model_doc/bert)
+
 (Private version) Data storage : [https://getpantry.cloud/](https://getpantry.cloud/)
