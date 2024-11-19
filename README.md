@@ -10,10 +10,14 @@
 <img src="https://github.com/user-attachments/assets/cc96338a-a280-40ce-8f1c-8001b26db9c9" width="49%" style="float: left;">
 <img src="https://github.com/user-attachments/assets/00bc843a-821d-40b5-bcb1-727e913982e8" width="49%" style="float: left;">
 
+## Need help? Ask BERT
+### A pull-based Q&A model designed to deliver personalized answers tailored to users' specific needs
+
+<img width="1470" alt="BERT" src="https://github.com/user-attachments/assets/3ea2f066-f27d-4986-b3c6-297845de876e">
 
 ## Profile creation
 ### Saving account information 
-Private version : online, to play from anywhere.
+Private version : online, to play from anywhere
 
 <img width="1470" alt="Account" src="https://github.com/user-attachments/assets/f4998f9a-5df2-466b-841e-6d0fa9ea1c84">
 
@@ -21,11 +25,11 @@ Private version : online, to play from anywhere.
 
 This project is part of a course where learning and innovation take precedence over code security and efficiency. Thanks for your understanding.
 
-Note : The screen resolution is based on 1470 x 956 (Update still to come)
+Note : The screen resolution is based on 1470 x 956.
 
 ## Acknowledgment
 Inspired by: [https://github.com/catabriga/graphwar](https://github.com/catabriga/graphwar)  
 
 United States Cities Database by Simplemaps: [https://simplemaps.com/data/us-cities](https://simplemaps.com/data/us-cities)
 
-(Private version) Data storage : [https://getpantry.cloud/](https://getpantry.cloud/))
+(Private version) Data storage : [https://getpantry.cloud/](https://getpantry.cloud/)
