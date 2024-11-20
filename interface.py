@@ -3,6 +3,7 @@ from accueil import Accueil
 from formulaire import Formulaire
 from jeu import Jeu
 from joueur import Joueur
+from chat import Chat
 
 class Interface(ctk.CTkFrame):  # Définition de l'écran d'accueil
     def __init__(self, master=None):
@@ -12,7 +13,7 @@ class Interface(ctk.CTkFrame):  # Définition de l'écran d'accueil
 
     def setup(self):
         # Initialisation et configuration du frame
-        color_back = "#121D22" # 121D22
+        color_back = "#121D22" # 121D22 # 0B051D
         self.configure(fg_color=color_back) # Couleur de la fenetre
         self.main_frame = ctk.CTkFrame(self, fg_color=color_back) # Couleur du frame
         self.main_frame.grid(sticky="nsew") # Frame format grid (row=1, column=0, pady=30, padx=20,)
@@ -23,7 +24,9 @@ class Interface(ctk.CTkFrame):  # Définition de l'écran d'accueil
         self.formulaire = Formulaire(self.master, self.main_frame, self.accueil)
         self.jeu = Jeu(self.master, self.main_frame, self.accueil)
         self.joueur = Joueur(self.accueil, self.jeu.get_obstacles())
+        self.chat = Chat(self.master, self.main_frame, self.accueil)
         self.accueil.set_formulaire(self.formulaire)
         self.accueil.set_jeu(self.jeu)
         self.accueil.set_nom_joueur(self.joueur.get_nom_joueur())
+        self.accueil.set_chat(self.chat)
         self.accueil.afficher_accueil(False) # Lancer l'accueil par défaut
