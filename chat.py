@@ -230,4 +230,6 @@ class Chat(ctk.CTkFrame):
             self.main_frame.columnconfigure(col, minsize=0) 
             self.main_frame.columnconfigure(col, pad=0)
         self.ask_no = 0
+        self.questions.clear()
+        self.reponses.clear()
         self.accueil.jeu.lancer_jeu()
