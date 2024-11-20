@@ -31,7 +31,7 @@ class Tir:
             for i in equation:
                 if i == '+' : nb_plus += 1
                 if i == 'x' : nb_x += 1
-                if i == '-' and equation[no+1] != 'x': nb_moins += 1
+                # if i == '-' and equation[no+1] != 'x': nb_moins += 1 (-0.5*x)
                 no += 1
             if nb_plus >= nb_x or nb_moins >= nb_x:
                 print("La fonction ne peut pas être translatée verticalement.")
