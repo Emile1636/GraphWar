@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg  # Importation pour intégrer Matplotlib avec tkinter
 from joueur import Joueur  
 from tir import Tir  
-from formulaire import Formulaire
 from traitementCSV import Obstacles
 from matplotlib.patches import Circle
 import json
@@ -55,7 +54,8 @@ class Jeu(ctk.CTkFrame):
         self.plot_button = ctk.CTkButton(self.main_frame, text="Plot function", command=self.tir.plot_function, width=220, height=50, corner_radius=25, fg_color="#ff6347", hover_color="#d93c3a", font=("Arial", 18, "bold"))
         self.reset_button = ctk.CTkButton(self.main_frame, text="Reset", command=self.reset_all, width=150, height=40, corner_radius=15, fg_color="#16a085", hover_color="#12876f", font=("Arial", 18, "bold"))
         # Quatrième
-        self.bouton_retour = ctk.CTkButton(self.main_frame, text="Back", command=lambda:[self.set_bool(False), self.set_score_joueur(self.score), self.masquer_jeu()], corner_radius=15, width=200, height=40, fg_color="#e74c3c", hover_color="#d93c3a", font=("Arial", 16, "bold"))
+        self.bouton_chat = ctk.CTkButton(self.main_frame, text="Ask question", command=lambda:[self.set_bool(False), self.set_score_joueur(self.score), self.masquer_jeu(), self.accueil.chat.afficher_chat()], corner_radius=17, width=200, height=40, fg_color="#16a085", hover_color="#12876f", font=("Arial", 20, "bold"))
+        self.bouton_retour = ctk.CTkButton(self.main_frame, text="Back", command=lambda:[self.set_bool(False), self.set_score_joueur(self.score), self.masquer_jeu(), self.retour_accueil()], corner_radius=16, width=150, height=37, fg_color="#e74c3c", hover_color="#d93c3a", font=("Arial", 20, "bold"))
         
     def lancer_jeu(self):
         self.time_left = 101
@@ -98,7 +98,8 @@ class Jeu(ctk.CTkFrame):
         self.plot_obstacles_and_goal() # Tracer les obstacles et la cible
 
         # Quatrième ligne 
-        self.bouton_retour.grid(row=3, columnspan=4, padx=10, pady=10)
+        self.bouton_chat.grid(row=3, columnspan=4, padx=10, pady=5)
+        self.bouton_retour.grid(row=4, columnspan=4, padx=10, pady=5)
         self.tir.reset_plot()
 
     def masquer_jeu(self):
@@ -114,6 +115,9 @@ class Jeu(ctk.CTkFrame):
         self.reset_button.grid_remove()
         self.canvas.get_tk_widget().grid_remove()
         self.bouton_retour.grid_remove()
+        self.bouton_chat.grid_remove()
+
+    def retour_accueil(self):
         # Retour accueil
         if self.accueil.get_nom_joueur() != "Player":
             self.accueil.afficher_accueil(True)
@@ -196,6 +200,7 @@ class Jeu(ctk.CTkFrame):
             self.is_flashing = not self.is_flashing
             self.timer_label.configure(text="Time's up!")
             self.set_score_joueur(self.score)
+            self.bool = True # ------------------------------------------------
 
     def reset_all(self):
         self.bool = False
