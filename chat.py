@@ -180,7 +180,8 @@ class Chat(ctk.CTkFrame):
 
         #Générer la réponse
         reponse = self.generer_reponse(question)
-        
+        self.reponses.append(reponse)
+
         # Afficher la réponse
         self.bot_pp4.grid(row=6, column=0, padx=10, pady=10, sticky="w")
         self.text_B4.configure(text=reponse, fg_color="white", width=(self.size_text * len(reponse)))
@@ -217,7 +218,7 @@ class Chat(ctk.CTkFrame):
         self.text_B4.configure(text="", fg_color="#121D22")
         self.text_B4.grid_remove()
 
-        # Autres
+        # Autres éléments
         self.empty_pp.grid_remove()
         self.tampon.grid_remove()
         self.bouton_retour.grid_remove()
