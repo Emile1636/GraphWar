@@ -1,7 +1,6 @@
 from transformers import pipeline
-print("-------------------------")
 
-# Charger le pipeline de question/réponse
+# Créer le pipeline en spécifiant le modèle et le tokenizer
 qa_pipeline = pipeline("question-answering", model="bert-large-uncased-whole-word-masking-finetuned-squad", device=0)
 
 # Contexte structuré
