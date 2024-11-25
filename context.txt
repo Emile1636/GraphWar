@@ -1,6 +1,31 @@
 A linear function is expressed as y = ax, where: 
-- 'a' is the slope: if 'a' > 0, the line goes up; if 'a' < 0, it goes down; if 'a' = 0, it is horizontal. 
-To increase the slope or make the line go up more quickly, increase the value of 'a' in y = ax. 
-A greater slope means that the line goes up more quickly, while a smaller slope makes the 
-ascent or descent less steep. Changing 'a' directly changes the inclination of the line in a Cartesian graph. 
-For a more gradual rise, simply decrease 'a' slightly without making it negative.
+- 'a' is the slope. If 'a' > 0, the line goes up; if 'a' < 0, the line goes down; if 'a' = 0, the line is horizontal. 
+- To increase a linear function, increase the value of 'a'.
+- To make a linear function go down, set 'a' < 0.
+
+A quadratic function is expressed as y = ax^2, where: 
+- 'a' determines the parabola's direction and steepness. If 'a' > 0, the parabola opens upwards; if 'a' < 0, the parabola opens downwards. 
+- To increase a quadratic function, increase the absolute value of 'a' to make the parabola steeper.
+- To make a quadratic function go down, set 'a' < 0.
+
+A sinus function is expressed as y = A * sin(Bx + C) + D, where: 
+- 'A' is the amplitude. It determines the height of the wave:
+  - If 'A' > 0, the wave oscillates between D - A and D + A.
+  - If 'A' < 0, the wave is inverted, making the wave "go down" relative to its baseline.
+- To increase the amplitude of a sinusoidal function, increase the absolute value of 'A'.
+- To make a sinus function go down, set 'A' < 0.
+
+A cosine function is expressed as y = A * cos(Bx + C) + D, where: 
+- 'A' is the amplitude, determining the height of the wave:
+  - If 'A' > 0, the wave oscillates between D - A and D + A.
+  - If 'A' < 0, the wave is inverted, making the wave "go down" relative to its baseline.
+- To increase the amplitude of a cosine function, increase the absolute value of 'A'.
+- To make a cosine function go down, set 'A' < 0.
+
+An exponential function is expressed as y = a * e^(bx), where: 
+- 'a' is the initial value or scaling factor. It determines the value of y when x = 0.
+- 'b' is the growth rate:
+  - If 'b' > 0, the function grows exponentially as x increases.
+  - If 'b' < 0, the function decreases exponentially as x increases.
+- To increase an exponential function, increase the value of 'a' or 'b'.
+- To make an exponential function go down, set 'b' < 0.

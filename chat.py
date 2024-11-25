@@ -53,7 +53,7 @@ class Chat(ctk.CTkFrame):
 
     def creation_chatbot(self):
         # Charger le modèle de question-réponse
-        model_name = "bert-large-uncased-whole-word-masking-finetuned-squad"
+        model_name = "bert-large-uncased-whole-word-masking-finetuned-squad" # Autre : "deepset/roberta-base-squad2"
         self.nlp = pipeline('question-answering', model=model_name, tokenizer=model_name, device=0)  # Utiliser le GPU 
         with open('context.txt', 'r') as file:
             self.context = file.read()
