@@ -14,19 +14,19 @@ questions = [
     "What is the form of a quadratic function?",
     "What is the form of a sinus function?",
     "What is the form of a cosine function?",
-    "What is the form of a exponential function?",
+    "What is the form of an exponential function?",
 
     "How to increase a linear function?",
     "How to increase a quadratic function?",
     "How to increase a sinus function?",
     "How to increase a cosine function?",
-    "How to increase a exponential function?",
+    "How to increase an exponential function?",
 
     "How to make a linear function goes down?",
     "How to make a quadratic function goes down?",
     "How to make a sinus function goes down?",
     "How to make a cosine function goes down?",
-    "How to make a exponential function goes down?"
+    "How to make an exponential function goes down?"
 ]
 
 

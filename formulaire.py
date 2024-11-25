@@ -123,67 +123,68 @@ class Formulaire(ctk.CTkFrame):
 
     def inscription(self):
         self.confirm_mdp = self.entry_confirm_mdp.get()
-        if self.bouton_valider.cget("text") == "Sign in":
-            if os.path.exists("utilisateurs.json"):
-                with open("utilisateurs.json", "r") as f:
-                    utilisateurs = json.load(f)
-            else:
-                utilisateurs = {}
+        if self.bouton_valider.cget("text") != "Sign in":
+            return
+        if os.path.exists("utilisateurs.json"):
+            with open("utilisateurs.json", "r") as f:
+                utilisateurs = json.load(f)
+        else:
+            utilisateurs = {}
 
-            self.get_info()
-            # Conditions d'inscription 
-            if self.pseudo in utilisateurs:
-                self.entry_pseudo.delete(0, "end")
-                self.entry_pseudo.configure(placeholder_text="* Username already used", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
-                return
+        self.get_info()
+        # Conditions d'inscription 
+        if self.pseudo in utilisateurs:
+            self.entry_pseudo.delete(0, "end")
+            self.entry_pseudo.configure(placeholder_text="* Username already used", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+            return
             
-            elif not self.pseudo:
-                self.entry_pseudo.configure(placeholder_text="* Please enter a username", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
-                return
+        elif not self.pseudo:
+            self.entry_pseudo.configure(placeholder_text="* Please enter a username", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+            return
             
-            elif len(self.pseudo) < 4:
-                self.set_nom_joueur("")
-                self.entry_pseudo.delete(0, "end")
-                self.entry_pseudo.configure(placeholder_text="* Username too short", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
-                return
+        elif len(self.pseudo) < 4:
+            self.set_nom_joueur("")
+            self.entry_pseudo.delete(0, "end")
+            self.entry_pseudo.configure(placeholder_text="* Username too short", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+            return
             
-            elif not self.mdp and not self.confirm_mdp:
-                self.entry_mdp.configure(placeholder_text="* Please enter a password", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
-                self.entry_confirm_mdp.configure(placeholder_text="* Please enter a password", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
-                return
+        elif not self.mdp and not self.confirm_mdp:
+            self.entry_mdp.configure(placeholder_text="* Please enter a password", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+            self.entry_confirm_mdp.configure(placeholder_text="* Please enter a password", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+            return
             
-            elif len(self.mdp) < 5:
+        elif len(self.mdp) < 5:
+            self.entry_mdp.delete(0, "end")
+            self.entry_mdp.configure(placeholder_text="* Password too short", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+            return 
+            
+        elif self.mdp == self.pseudo:
+            self.entry_mdp.delete(0, "end")
+            self.entry_mdp.configure(placeholder_text="* Must be different from username", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+            return
+            
+        caract_special = ['!', '@', '#', '$', '%', '?', '&', '*', '_', '-', '=', '+', ';', '<', '>', ',', '.', ':', '¨', '^', '~', '»', '«']
+        for c in caract_special:
+            if not any(c in self.mdp for c in caract_special):
                 self.entry_mdp.delete(0, "end")
-                self.entry_mdp.configure(placeholder_text="* Password too short", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+                self.entry_mdp.configure(placeholder_text="* Must contain a special character", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
                 return 
             
-            elif self.mdp == self.pseudo:
-                self.entry_mdp.delete(0, "end")
-                self.entry_mdp.configure(placeholder_text="* Must be different from username", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
-                return
+        if self.mdp != self.confirm_mdp:
+            self.entry_mdp.delete(0, "end")
+            self.entry_mdp.configure(placeholder_text="* Passwords must match", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+            self.entry_confirm_mdp.delete(0, "end")
+            self.entry_confirm_mdp.configure(placeholder_text="* Passwords must match", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+            return
             
-            caract_special = ['!', '@', '#', '$', '%', '?', '&', '*', '_', '-', '=', '+', ';', '<', '>', ',', '.', ':', '¨', '^', '~', '»', '«']
-            for c in caract_special:
-                if not any(c in self.mdp for c in caract_special):
-                    self.entry_mdp.delete(0, "end")
-                    self.entry_mdp.configure(placeholder_text="* Must contain a special character", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
-                    return 
-            
-            if self.mdp != self.confirm_mdp:
-                self.entry_mdp.delete(0, "end")
-                self.entry_mdp.configure(placeholder_text="* Passwords must match", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
-                self.entry_confirm_mdp.delete(0, "end")
-                self.entry_confirm_mdp.configure(placeholder_text="* Passwords must match", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
-                return
-            
-            elif self.mdp == self.confirm_mdp:
-                # Hacher le mot de passe
-                hashed_mdp = bcrypt.hashpw(self.mdp.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-                utilisateurs[self.pseudo] = {"password": hashed_mdp}
-                with open("utilisateurs.json", "w") as f:
-                    json.dump(utilisateurs, f, indent=4)
-                # self.bouton_valider.configure(text="Réussi!")
-                self.afficher_inscription_reussi()
+        elif self.mdp == self.confirm_mdp:
+            # Hacher le mot de passe
+            hashed_mdp = bcrypt.hashpw(self.mdp.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+            utilisateurs[self.pseudo] = {"password": hashed_mdp}
+            with open("utilisateurs.json", "w") as f:
+                json.dump(utilisateurs, f, indent=4)
+            # self.bouton_valider.configure(text="Réussi!")
+            self.afficher_inscription_reussi()
 
     def afficher_connexion_reussi(self):
         self.masquer_formulaire()

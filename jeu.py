@@ -182,25 +182,26 @@ class Jeu(ctk.CTkFrame):
         self.update_obstacles_touches()
 
     def update_timer(self):
-        if self.time_left > 0:
-            self.time_left -= 1
-            self.timer_label.configure(text=f"Timer : {self.time_left}")  # Mettre à jour le texte du timer
-            # Clignotement : alterner la couleur à chaque seconde
-            if self.time_left <= 29:
-                if self.is_flashing:
-                    self.timer_label.configure(text_color="#F8F6F6")  # Couleur normale
-                else:
-                    self.timer_label.configure(text_color="red")  # Couleur de clignotement
-                self.is_flashing = not self.is_flashing  # Alterner l'état du clignotement
-            # Réappeler la fonction après 1000ms (1 seconde)
-            if self.get_bool() is True:
-                self.master.after(1000, lambda: self.update_timer())
-        else:
+        if self.time_left <= 0:
             self.timer_label.configure(text_color="#F8F6F6")  # Couleur normale
             self.is_flashing = not self.is_flashing
             self.timer_label.configure(text="Time's up!")
             self.set_score_joueur(self.score)
-            self.bool = True # ------------------------------------------------
+            self.bool = True
+            return
+        
+        self.time_left -= 1
+        self.timer_label.configure(text=f"Timer : {self.time_left}")  # Mettre à jour le texte du timer
+        # Clignotement : alterner la couleur à chaque seconde
+        if self.time_left <= 29:
+            if self.is_flashing:
+                self.timer_label.configure(text_color="#F8F6F6")  # Couleur normale
+            else:
+                self.timer_label.configure(text_color="red")  # Couleur de clignotement
+            self.is_flashing = not self.is_flashing  # Alterner l'état du clignotement
+        # Réappeler la fonction après 1000ms (1 seconde)
+        if self.get_bool() is True:
+            self.master.after(1000, lambda: self.update_timer())
 
     def reset_all(self):
         self.bool = False
@@ -219,36 +220,39 @@ class Jeu(ctk.CTkFrame):
         self.score = score
 
     def set_score_joueur(self, score):
-        if os.path.exists("utilisateurs.json"):
-            with open("utilisateurs.json", "r") as f:
-                utilisateurs = json.load(f)
-
-            joueur_nom = self.accueil.get_nom_joueur()
-            if joueur_nom in utilisateurs:
-                if 'score' not in utilisateurs[joueur_nom] or score > utilisateurs[joueur_nom]['score']:
-                        utilisateurs[joueur_nom]['score'] = score
-            # Uptatde fichier
-            with open("utilisateurs.json", "w") as f:
-                json.dump(utilisateurs, f, indent=4)
-        else:
+        if not os.path.exists("utilisateurs.json"):
             utilisateurs = {self.accueil.get_nom_joueur(): {"password": "default_password", "score": score}}
             with open("utilisateurs.json", "w") as f:
                 json.dump(utilisateurs, f, indent=4)
+            return
+
+        with open("utilisateurs.json", "r") as f:
+            utilisateurs = json.load(f)
+
+        joueur_nom = self.accueil.get_nom_joueur()
+        if joueur_nom in utilisateurs:
+            if 'score' not in utilisateurs[joueur_nom] or score > utilisateurs[joueur_nom]['score']:
+                utilisateurs[joueur_nom]['score'] = score
+        # Uptatde fichier
+        with open("utilisateurs.json", "w") as f:
+            json.dump(utilisateurs, f, indent=4)
 
     def get_score_joueur(self):
         nom = self.accueil.get_nom_joueur()
-        if os.path.exists("utilisateurs.json"):
-            with open("utilisateurs.json", "r") as f:
-                utilisateurs = json.load(f)
+        if not os.path.exists("utilisateurs.json"):
+            return 
+        
+        with open("utilisateurs.json", "r") as f:
+            utilisateurs = json.load(f)
 
-            if nom in utilisateurs:
-                if 'score' not in utilisateurs[nom]:
-                    utilisateurs[nom]['score'] = 0
-                    return utilisateurs[nom]['score']
-                else:
-                    return utilisateurs[nom]['score']
+        if nom in utilisateurs:
+            if 'score' not in utilisateurs[nom]:
+                utilisateurs[nom]['score'] = 0
+                return utilisateurs[nom]['score']
             else:
-                return False
+                return utilisateurs[nom]['score']
+        else:
+            return False
              
     def set_bool(self, bool):
         self.bool = bool
