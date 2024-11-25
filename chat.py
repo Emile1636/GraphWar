@@ -14,10 +14,10 @@ class Chat(ctk.CTkFrame):
         self.creation_chat()
         self.creation_chatbot()
     
-    def creation_chat(self): # afficher une image vide pour le uyser des le début
+    def creation_chat(self): # afficher une image vide pour le user dès le début
         # Images
         # Chargement et conversion de l'image en CTkImage
-        image_empty = Image.open("./images/empty.png")
+        image_empty = Image.open("./images/empty2.png")
         ctk_image_empty = ctk.CTkImage(image_empty, size=(50, 50)) 
         self.empty_pp = ctk.CTkLabel(self.main_frame, image=ctk_image_empty, text="")
 

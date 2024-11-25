@@ -26,9 +26,9 @@ questions = [
     "How to make a quadratic function goes down?",
     "How to make a sinus function goes down?",
     "How to make a cosine function goes down?",
-    "How to make a exponential function goes down?",
-
+    "How to make a exponential function goes down?"
 ]
+
 
 # Boucle pour obtenir les réponses
 for question in questions:
