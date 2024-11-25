@@ -35,13 +35,13 @@ class Chat(ctk.CTkFrame):
 
         # Zones de textes afficher messages #121D22
         self.tampon = ctk.CTkLabel(self.main_frame, text="", width=1000, height=1, fg_color="#121D22")
-        self.text_B1 = ctk.CTkLabel(self.main_frame, text="", width=475, height=65,corner_radius=35, fg_color="white", text_color="black", font=("Arial", 20, "bold"), anchor="w") # fg_color="#16a085", text_color="#F8F6F6"
-        self.text_U1 = ctk.CTkLabel(self.main_frame, text="", width=700, height=65,corner_radius=35, fg_color="#121D22", text_color="black", font=("Arial", 20, "bold"), anchor="e")
-        self.text_B2 = ctk.CTkLabel(self.main_frame, text="", width=700, height=65,corner_radius=35, fg_color="#121D22", text_color="black", font=("Arial", 20, "bold"), anchor="w")
-        self.text_U2 = ctk.CTkLabel(self.main_frame, text="", width=700, height=65,corner_radius=35, fg_color="#121D22", text_color="black", font=("Arial", 20, "bold"), anchor="e")
-        self.text_B3 = ctk.CTkLabel(self.main_frame, text="", width=700, height=65,corner_radius=35, fg_color="#121D22", text_color="black", font=("Arial", 20, "bold"), anchor="w")
-        self.text_U3 = ctk.CTkLabel(self.main_frame, text="", width=700, height=65,corner_radius=35, fg_color="#121D22", text_color="black", font=("Arial", 20, "bold"), anchor="e")
-        self.text_B4 = ctk.CTkLabel(self.main_frame, text="", width=700, height=65,corner_radius=35, fg_color="#121D22", text_color="black", font=("Arial", 20, "bold"), anchor="w")
+        self.text_B1 = ctk.CTkLabel(self.main_frame, text="", width=475, height=65,corner_radius=35, fg_color="white", text_color="black", font=("Helvetica", 20, "bold"), anchor="w") # fg_color="#16a085", text_color="#F8F6F6"
+        self.text_U1 = ctk.CTkLabel(self.main_frame, text="", width=700, height=65,corner_radius=35, fg_color="#121D22", text_color="black", font=("Helvetica", 20, "bold"), anchor="e")
+        self.text_B2 = ctk.CTkLabel(self.main_frame, text="", width=700, height=65,corner_radius=35, fg_color="#121D22", text_color="black", font=("Helvetica", 20, "bold"), anchor="w")
+        self.text_U2 = ctk.CTkLabel(self.main_frame, text="", width=700, height=65,corner_radius=35, fg_color="#121D22", text_color="black", font=("Helvetica", 20, "bold"), anchor="e")
+        self.text_B3 = ctk.CTkLabel(self.main_frame, text="", width=700, height=65,corner_radius=35, fg_color="#121D22", text_color="black", font=("Helvetica", 20, "bold"), anchor="w")
+        self.text_U3 = ctk.CTkLabel(self.main_frame, text="", width=700, height=65,corner_radius=35, fg_color="#121D22", text_color="black", font=("Helvetica", 20, "bold"), anchor="e")
+        self.text_B4 = ctk.CTkLabel(self.main_frame, text="", width=700, height=65,corner_radius=35, fg_color="#121D22", text_color="black", font=("Helvetica", 20, "bold"), anchor="w")
        
         # Zone d'écriture
         self.entry_question = ctk.CTkEntry(self.main_frame, placeholder_text="Ask your question...", placeholder_text_color="#B0B0B0", width=800, height=60,corner_radius=25, fg_color="white", text_color="black", font=("Arial", 20, "bold"))
@@ -71,7 +71,7 @@ class Chat(ctk.CTkFrame):
     def afficher_chat(self):
         # Charger BERT
         if not self.BERT_is_loaded:
-            self.label_chargement = ctk.CTkLabel(self.main_frame, text="Loading...", font=("Arial", 100, "bold"), text_color="#16a085")
+            self.label_chargement = ctk.CTkLabel(self.main_frame, text="Loading...", font=("Helvetica", 100, "bold"), text_color="#16a085")
             self.label_chargement.grid(row=2, column=1, columnspan=2, pady=(0, 100))
             self.after(500, None)
             self.creation_chatbot()
