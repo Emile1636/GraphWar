@@ -85,38 +85,41 @@ class Formulaire(ctk.CTkFrame):
         return self.pseudo
 
     def connexion(self):
-        if self.bouton_valider.cget("text") == "Log in":
-            if os.path.exists("utilisateurs.json"):
-                with open("utilisateurs.json", "r") as f:
-                    utilisateurs = json.load(f)
+        if self.bouton_valider.cget("text") != "Log in":
+            return
+        
+        if not os.path.exists("utilisateurs.json"):
+            print("Aucun utilisateur enregistré. Veuillez vous inscrire d'abord.")
+            return 
+        
+        with open("utilisateurs.json", "r") as f:
+            utilisateurs = json.load(f)
 
-                self.get_info()
-                # Conditions de connexion    
-                if self.pseudo in utilisateurs:
-                    # Récupérer le mot de passe haché
-                    hashed_mdp = utilisateurs[self.pseudo]["password"].encode('utf-8')
-                    if bcrypt.checkpw(self.mdp.encode('utf-8'), hashed_mdp):
-                        self.set_nom_joueur(self.pseudo)
-                        self.afficher_connexion_reussi()
-                    else:
-                        self.entry_mdp.delete(0, "end")
-                        self.entry_mdp.configure(placeholder_text="* Wrong password", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
-                        return
-                # Connexion non abouti 
-                if not self.pseudo:
-                    self.entry_pseudo.configure(placeholder_text="* Please enter a username", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
-                    return 
-                
-                elif self.pseudo and not self.mdp:
-                    self.entry_mdp.configure(placeholder_text="* Please enter a password", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
-                    return  
-                
-                elif not self.pseudo in utilisateurs and len(self.pseudo) > 0:
-                    self.entry_pseudo.delete(0, "end")
-                    self.entry_pseudo.configure(placeholder_text="* User not found", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
-                    return
+        self.get_info()
+        # Conditions de connexion    
+        if self.pseudo in utilisateurs:
+            # Récupérer le mot de passe haché
+            hashed_mdp = utilisateurs[self.pseudo]["password"].encode('utf-8')
+            if bcrypt.checkpw(self.mdp.encode('utf-8'), hashed_mdp):
+                self.set_nom_joueur(self.pseudo)
+                self.afficher_connexion_reussi()
             else:
-                print("Aucun utilisateur enregistré. Veuillez vous inscrire d'abord.")
+                self.entry_mdp.delete(0, "end")
+                self.entry_mdp.configure(placeholder_text="* Wrong password", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+                return
+            # Connexion non abouti 
+        if not self.pseudo:
+            self.entry_pseudo.configure(placeholder_text="* Please enter a username", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+            return 
+                
+        elif self.pseudo and not self.mdp:
+            self.entry_mdp.configure(placeholder_text="* Please enter a password", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+            return  
+                
+        elif not self.pseudo in utilisateurs and len(self.pseudo) > 0:
+            self.entry_pseudo.delete(0, "end")
+            self.entry_pseudo.configure(placeholder_text="* User not found", placeholder_text_color="#F14156", font=("Arial", 24, "bold"))
+            return
 
     def inscription(self):
         self.confirm_mdp = self.entry_confirm_mdp.get()
