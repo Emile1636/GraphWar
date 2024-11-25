@@ -1,6 +1,5 @@
 import customtkinter as ctk
-from PIL import Image, ImageTk
-from transformers import pipeline 
+from PIL import Image
 
 class Chat(ctk.CTkFrame):
     def __init__(self, master, main_frame, accueil):
@@ -11,8 +10,8 @@ class Chat(ctk.CTkFrame):
         self.size_text = 10.8
         self.questions = []
         self.reponses = []
+        self.BERT_is_loaded = False
         self.creation_chat()
-        self.creation_chatbot()
     
     def creation_chat(self): # afficher une image vide pour le user dès le début
         # Images
@@ -52,6 +51,7 @@ class Chat(ctk.CTkFrame):
         self.bouton_retour = ctk.CTkButton(self.main_frame, text="Back", command=lambda:[self.masquer_chat()], corner_radius=30, width=150, height=40, fg_color="#e74c3c", hover_color="#d93c3a", font=("Arial", 24, "bold"))
 
     def creation_chatbot(self):
+        from transformers import pipeline 
         # Charger le modèle de question-réponse
         model_name = "bert-large-uncased-whole-word-masking-finetuned-squad" # Autre : "deepset/roberta-base-squad2"
         self.nlp = pipeline('question-answering', model=model_name, tokenizer=model_name, device=0)  # Utiliser le GPU 
@@ -69,6 +69,15 @@ class Chat(ctk.CTkFrame):
         return reponse
 
     def afficher_chat(self):
+        # Charger BERT
+        if not self.BERT_is_loaded:
+            self.label_chargement = ctk.CTkLabel(self.main_frame, text="Loading...", font=("Arial", 100, "bold"), text_color="#16a085")
+            self.label_chargement.grid(row=2, column=1, columnspan=2, pady=(0, 100))
+            self.after(500, None)
+            self.creation_chatbot()
+            self.BERT_is_loaded = True
+            self.label_chargement.grid_remove()
+
         # Positionner les avatars et messages
         self.empty_pp.grid(row=1, column=2, padx=10, pady=10, sticky="e")
         self.bot_pp1.grid(row=0, column=0, padx=10, pady=10, sticky="w")

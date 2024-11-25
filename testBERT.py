@@ -28,7 +28,6 @@ questions = [
     "How to make an exponential function goes down?"
 ]
 
-
 # Boucle pour obtenir les réponses
 for question in questions:
     result = qa_pipeline(question=question, context=context)
