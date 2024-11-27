@@ -1,5 +1,7 @@
 import customtkinter as ctk
 from PIL import Image
+import sys
+import os
 
 class Chat(ctk.CTkFrame):
     def __init__(self, master, main_frame, accueil):
@@ -11,23 +13,51 @@ class Chat(ctk.CTkFrame):
         self.questions = []
         self.reponses = []
         self.BERT_is_loaded = False
+        self.images = self.load_images()
+
         self.creation_chat()
+
+    def get_base_path(self):
+        # Détermine le chemin de base selon le mode d'exécution
+        if getattr(sys, 'frozen', False):  # Exécutable PyInstaller
+            return sys._MEIPASS
+        else:  # Exécution directe
+            return os.path.dirname(os.path.abspath(__file__))
+
+    def load_images(self):
+        # Dictionnaire pour stocker les chemins d'accès des images
+        base_path = self.get_base_path()
+        image_folder = os.path.join(base_path, "images")
+
+        # Liste des images
+        images = {
+            "empty2.png": os.path.join(image_folder, "empty2.png"),
+            "bot_pp.png": os.path.join(image_folder, "bot_pp.png"),
+            "user_pp2.png": os.path.join(image_folder, "user_pp2.png")
+        }
+
+        # Vérifier que toutes les images existent
+        for name, path in images.items():
+            if not os.path.exists(path):
+                raise FileNotFoundError(f"L'image {name} est introuvable au chemin : {path}")
+
+        return images
     
     def creation_chat(self): # afficher une image vide pour le user dès le début
         # Images
         # Chargement et conversion de l'image en CTkImage
-        image_empty = Image.open("./images/empty2.png")
+        image_empty = Image.open(self.images["empty2.png"])
         ctk_image_empty = ctk.CTkImage(image_empty, size=(50, 50)) 
         self.empty_pp = ctk.CTkLabel(self.main_frame, image=ctk_image_empty, text="")
 
-        image_bot = Image.open("./images/bot_pp.png")
+        image_bot = Image.open(self.images["bot_pp.png"])
         ctk_image_bot = ctk.CTkImage(image_bot, size=(50, 50)) 
         self.bot_pp1 = ctk.CTkLabel(self.main_frame, image=ctk_image_bot, text="")
         self.bot_pp2 = ctk.CTkLabel(self.main_frame, image=ctk_image_bot, text="")
         self.bot_pp3 = ctk.CTkLabel(self.main_frame, image=ctk_image_bot, text="")
         self.bot_pp4 = ctk.CTkLabel(self.main_frame, image=ctk_image_bot, text="")
 
-        image_user = Image.open("./images/user_pp2.png")
+        image_user = Image.open(self.images["user_pp2.png"])
         ctk_image_user = ctk.CTkImage(image_user, size=(50, 50))
         self.user_pp1 = ctk.CTkLabel(self.main_frame, image=ctk_image_user, text="")
         self.user_pp2 = ctk.CTkLabel(self.main_frame, image=ctk_image_user, text="")
