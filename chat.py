@@ -14,6 +14,7 @@ class Chat(ctk.CTkFrame):
         self.reponses = []
         self.BERT_is_loaded = False
         self.images = self.load_images()
+        self.context = self.load_context()
 
         self.creation_chat()
 
@@ -23,6 +24,19 @@ class Chat(ctk.CTkFrame):
             return sys._MEIPASS
         else:  # Exécution directe
             return os.path.dirname(os.path.abspath(__file__))
+        
+    def load_context(self):
+        # Détermine le chemin vers context.txt
+        base_path = self.get_base_path()
+        context_path = os.path.join(base_path, "context.txt")
+
+        # Vérifie si le fichier existe
+        if not os.path.exists(context_path):
+            raise FileNotFoundError(f"Fichier 'context.txt' introuvable au chemin : {context_path}")
+
+        # Lit le contenu du fichier
+        with open(context_path, 'r', encoding="utf-8") as file:
+            return file.read()
 
     def load_images(self):
         # Dictionnaire pour stocker les chemins d'accès des images
@@ -85,8 +99,6 @@ class Chat(ctk.CTkFrame):
         # Charger le modèle de question-réponse
         model_name = "bert-large-uncased-whole-word-masking-finetuned-squad" # Autre : "deepset/roberta-base-squad2"
         self.nlp = pipeline('question-answering', model=model_name, tokenizer=model_name, device=0)  # Utiliser le GPU 
-        with open('context.txt', 'r') as file:
-            self.context = file.read()
 
     def generer_reponse(self, question):
         result = self.nlp(question=question, context=self.context) 
